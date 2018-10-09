@@ -18,13 +18,20 @@ for(var k = 0; k < 5;k++){
 for(var k = 0; k < 5 ; k++){
   lines.shift();
 }
-str = lines.join("\n")
+console.log(lines[1]);
+str = lines.join("\n");
+console.log(str[0]);
+
+
 
 // str = str.split('\n').map(function (el) { return el.split(/\s+/); });
 var elems = str.split('===============').map((el) => {
+
   var smEl = el.split("\n")
+// smEl[1].map()
   var host = smEl[1].split(":")
   host.shift()
+
   var login = smEl[2].split(":")
   login.shift()
   var password = smEl[3].split(":")
@@ -33,29 +40,83 @@ var elems = str.split('===============').map((el) => {
   var obj = {
     host: host.join(":").trim(),
     login: login.join(":").trim(),
-    password: password.join(":").trim(),
+    password: password.join(":").trim()
+
   }
+
   return obj
 })
 
 
-// console.log(elems[0])
+ console.log(elems[0])
 
 var passwords = elems.map((x)=> {
   return x.password
 })
 
-console.log(passwords[1]);
+
+
+//elems.host = elems.map()
+//console.log(elems[1]);
+var y = new Array();
+var reslt = new Array();
+var El = new Array();
+var hostk = elems.map((hk)=>{
+reslt = hk.host;
+y = reslt.replace('http://','').replace('https://','');
+
+return y;
+  // return hk.host;
+});
+reslt = hostk.map((el)=>{
+  for (var i = 0; i < 426; i++) {
+    El = el.substring(0 , el.lastIndexOf("/"));
+    
+  }
+
+return El;
+});
+console.log(reslt);
+
+//console.log(El);
+//console.log(hostk);
+//reslt[increm] = y[increm].substring(0 , hostk[increm].lastIndexOf("/"))
 
 
 
-var y;
+// console.log(y);
+//console.log(elems);
+// hk.host.replace('http://','');
+// for (var i = 0; i < elems.length; i++) {
+//
+//   while (hk.host[i].charAt( 6 ) === '/') {
+//   hk.host[i] = hk.host[i].slice( 8 );
+//   hk.host[i] = hk.host[i].substring(0 , hk.host[i].lastIndexOf("/"));
+//   }
+// }
+// while( myString.charAt( 6 ) === '/' )
+//     myString = myString.slice( 8 );
+//myString = myString.substring(0 , myString.lastIndexOf("/"));
 
-try{
-    fs.writeFileSync('myfile.txt', elems);
-}catch (e){
-    console.log("Cannot write file ", e);
-}
+
+
+// // const selectedPerson = peopleArray.find(person => person.id === idToSelect)
+// const arrayToObject = (array, keyField) =>
+//    array.reduce((obj, item) => {
+//      obj[item[keyField]] = item
+//      return obj
+//    }, {})
+// const peopleObject = arrayToObject(peopleArray, "id")
+// console.log(peopleObject[idToSelect])
+
+
+
+
+// try{
+//     fs.writeFileSync('myfile.txt', elems);
+// }catch (e){
+//     console.log("Cannot write file ", e);
+// }
 
 
 
@@ -153,7 +214,7 @@ console.log(arrayToObject(myArray));
 // for( x in data){
 //     struct.push(data[x]);
 // }
-console.log(struct[0]);
+
 
    //    var headings;
    //   var obj = {};
