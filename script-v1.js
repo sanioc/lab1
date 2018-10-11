@@ -1,5 +1,101 @@
-var fs = require('fs');
+
+
+const fs = require('fs');
+
+function readFile(fileName) {
+    const str = fs.readFileSync(fileName, "utf-8");
+    var lines = str.split("\n");
+    var headings = new Array();
+    for (var k = 0; k < 5; k++) {
+        headings[k] = lines[k];
+    }
+    for (var k = 0; k < 5; k++) {
+        lines.shift();
+    }
+    str = lines.join("\n");
+
+    return parseString(str)
+}
+
+function parseString(str) {
+    var elems = str.split('===============').map((el) => {
+
+        var smEl = el.split("\n")
+        // smEl[1].map()
+        var host = smEl[1].split(":")
+        host.shift()
+
+        var login = smEl[2].split(":")
+        login.shift()
+        var password = smEl[3].split(":")
+        password.shift()
+
+        var obj = {
+            host: host.join(":").trim(),
+            login: login.join(":").trim(),
+            password: password.join(":").trim()
+
+        }
+
+        return obj
+    })
+    return elems
+}
+
+
+function cleanUpHosts(elems) {
+    elems.forEach(x => {
+        var host = x.host
+        host = host.replace("http://", "").replace("https://","")
+        host = host.substring(0, host.indexOf("/"))
+        x.host = host
+    });
+    return elems
+}
+
+
+
+var elems = readFile("./Passwords.txt")
+
+console.log(elems[0])
+
+elems = cleanUpHosts(elems)
+
+console.log(elems[0])
+
+
+// var passwords = elems.map((x) => {
+//     return x.password
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //const read = require('read-file');
+/*
 var path = require('path');
 var os = require('os');
 var serc = require("full-text-search");
@@ -62,21 +158,21 @@ var y = new Array();
 var reslt = new Array();
 var El = new Array();
 var hostk = elems.map((hk)=>{
-reslt = hk.host;
-y = reslt.replace('http://','').replace('https://','');
 
-return y;
-  // return hk.host;
+   return hk.host.replace('http://','').replace('https://','');
+
 });
 reslt = hostk.map((el)=>{
-  for (var i = 0; i < 426; i++) {
-    El = el.substring(0 , el.lastIndexOf("/"));
-    
-  }
-
-return El;
+  return el.substring(0 , el.indexOf("/"));
 });
+//var newString = obj.host.substring(0, obj.host.indexOf(“/”));
 console.log(reslt);
+
+const func = (id, newName) => {arr.map(item =>{
+item.id === id ? item.host = newName : null
+})}
+*/
+//var elemente = func(0,result[0])
 
 //console.log(El);
 //console.log(hostk);
